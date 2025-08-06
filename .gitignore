@@ -1,27 +1,232 @@
 
-# dependencies
+# Dependencies
 /node_modules
 node_modules/
+/.pnp
+.pnp.js
 
-# next.js
+# Next.js
 /.next/
 /out/
+.next
 
-# production
+# Production builds
 /build
+/dist
 
-# debug
+# Debug logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+lerna-debug.log*
 
-# env files
+# Environment files (보안상 중요 - Git에 포함하지 않음)
 .env*
+!.env.example
+!.env.local.example
 
-# vercel
+# Vercel
 .vercel
 
-# typescript
+# TypeScript
 *.tsbuildinfo
 next-env.d.ts
+
+# IDE and Editor files (개발자마다 다른 설정)
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# Storybook build outputs
+.out
+.storybook-out
+
+# Temporary folders
+tmp/
+temp/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# Local development files that should be kept
+# (이 파일들은 개발에 도움이 되므로 Git에 포함)
+# .prettierrc
+# .prettierignore
+# .eslintrc.json
+# tsconfig.json
+# tailwind.config.ts
+# next.config.mjs
+# package.json
+# yarn.lock
+
+# Test files and coverage
+/coverage
+/test-results
+/playwright-report
+/playwright/.cache
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+logs
+*.log
+
+# Runtime files
+*.pid
+*.seed
+*.pid.lock
+
+# Optional cache directories
+.cache/
+.parcel-cache/
+.eslintcache
+.stylelintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env.test.local
+.env.production.local
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
+# yarn v2
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+# 
+===========================================
+# 개발에 유리한 파일들 (Git에 포함해야 함)
+# ===========================================
+# 이 파일들은 .gitignore에서 제외하여 팀원들과 공유
+
+# 코드 포맷팅 설정
+!.prettierrc
+!.prettierrc.json
+!.prettierrc.js
+!.prettierignore
+
+# 린팅 설정
+!.eslintrc.json
+!.eslintrc.js
+!.eslintignore
+
+# TypeScript 설정
+!tsconfig.json
+!tsconfig.*.json
+
+# Next.js 설정
+!next.config.js
+!next.config.mjs
+!next.config.ts
+
+# Tailwind CSS 설정
+!tailwind.config.js
+!tailwind.config.ts
+!postcss.config.js
+!postcss.config.mjs
+
+# 패키지 관리
+!package.json
+!yarn.lock
+!package-lock.json
+
+# 컴포넌트 설정
+!components.json
+
+# VS Code 공유 설정 (선택적)
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# 환경 변수 예시 파일
+!.env.example
+!.env.local.example
+
+# 문서 파일들
+!README.md
+!CHANGELOG.md
+!LICENSE
+!*.md
+
+# 설정 파일들
+!.editorconfig
+!.nvmrc
+!.node-version
+
+# GitHub 관련
+!.github/
+!.github/workflows/
+!.github/ISSUE_TEMPLATE/
+!.github/PULL_REQUEST_TEMPLATE.md

@@ -47,14 +47,18 @@ export function useCelebData(filters: CelebFilters, page: number, perPage: numbe
         },
         { skipNull: true, skipEmptyString: true }
       )
-
+ 
+      console.log("🚀 ---------[useCelebData] query::", query)
       try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/svc/celeb/customers?${query}`)
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`)
         }
-        console.log("🚀 ---------[useCelebData] res::", res)
+        // console.log("🚀 ---------[useCelebData] res::", res)
+
         const json = await res.json()
+        console.log("🚀 ---------[useCelebData] json::", json)
+
         setData(json.data.content)
         setTotalItems(json.data.totalElements)
       } catch (err) {

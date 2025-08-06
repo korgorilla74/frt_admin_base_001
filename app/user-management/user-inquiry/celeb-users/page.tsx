@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -26,7 +26,7 @@ export default function CelebUsersPage() {
     isActive: null,
   })
   const [page, setPage] = useState(1)
-  const [perPage, setPerPage] = useState(10)
+  const [perPage, setPerPage] = useState(5)
 
   const { data, totalItems, loading } = useCelebData(filters, page, perPage)
 
@@ -35,29 +35,47 @@ export default function CelebUsersPage() {
     setPage(1)
   }, [filters])
 
+  const handleSearch = () => {
+    // "조회" 버튼을 누르면 filters를 다시 set → useEffect 재실행
+    setFilters({ ...filters })
+  }
+
+const handleFieldUpdate = (field: keyof CelebFilters, value: string) => {
+  setFilters((prev) => ({
+    ...prev,
+    [field]: value,
+  }))
+}
+
   return (
     <Card>
       <CardContent className="space-y-6 pt-10">
-        {/* 🔍 조회 조건 */}
         <div className="w-full flex flex-wrap items-end gap-4 justify-between">
           <div className="flex flex-col w-[200px]">
             <Label htmlFor="celebName">셀럽명</Label>
             <Input
               id="celebName"
-              value={filters.celebName}
-              onChange={(e) =>
-                setFilters({ ...filters, celebName: e.target.value })
-              }
+              defaultValue={filters.celebName}
+              onBlur={(e) => handleFieldUpdate("celebName", e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleFieldUpdate("celebName", (e.target as HTMLInputElement).value)
+                }
+              }}
             />
           </div>
+
           <div className="flex flex-col w-[200px]">
             <Label htmlFor="companyName">회사명</Label>
             <Input
               id="companyName"
-              value={filters.companyName}
-              onChange={(e) =>
-                setFilters({ ...filters, companyName: e.target.value })
-              }
+              defaultValue={filters.companyName}
+              onBlur={(e) => handleFieldUpdate("companyName", e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleFieldUpdate("companyName", (e.target as HTMLInputElement).value)
+                }
+              }}
             />
           </div>
           <div className="flex flex-col w-[200px]">
@@ -83,7 +101,6 @@ export default function CelebUsersPage() {
             />
           </div>
 
-          {/* ✅ 사용 여부 ToggleGroup */}
           <div className="flex flex-col items-center justify-center">
             <Label htmlFor="isActive">사용 여부</Label>
             <ToggleGroup
@@ -123,6 +140,16 @@ export default function CelebUsersPage() {
                 미사용
               </ToggleGroupItem>
             </ToggleGroup>
+          </div>
+
+          {/* ✅ 조회 버튼 복원 */}
+          <div className="flex-1 flex justify-end">
+            <Button
+              onClick={handleSearch}
+              className="bg-blue-600 hover:bg-blue-700 text-white"
+            >
+              조회
+            </Button>
           </div>
         </div>
 
