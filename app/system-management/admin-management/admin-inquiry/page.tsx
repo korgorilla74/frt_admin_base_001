@@ -1,10 +1,29 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 
 export default function AdminInquiryPage() {
   const admins = [
-    { id: 1, name: "관리자A", email: "adminA@example.com", role: "슈퍼 관리자", lastLogin: "2024-07-18" },
-    { id: 2, name: "관리자B", email: "adminB@example.com", role: "일반 관리자", lastLogin: "2024-07-17" },
+    {
+      id: 1,
+      name: "관리자A",
+      email: "adminA@example.com",
+      role: "슈퍼 관리자",
+      lastLogin: "2024-07-18",
+    },
+    {
+      id: 2,
+      name: "관리자B",
+      email: "adminB@example.com",
+      role: "일반 관리자",
+      lastLogin: "2024-07-17",
+    },
   ]
 
   return (
@@ -25,7 +44,7 @@ export default function AdminInquiryPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {admins.map((admin) => (
+              {admins.map(admin => (
                 <TableRow key={admin.id}>
                   <TableCell>{admin.id}</TableCell>
                   <TableCell className="font-medium">{admin.name}</TableCell>

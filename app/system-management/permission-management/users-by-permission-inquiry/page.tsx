@@ -1,6 +1,19 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { Label } from "@/components/ui/label"
 
 export default function UsersByPermissionInquiryPage() {
@@ -31,7 +44,7 @@ export default function UsersByPermissionInquiryPage() {
                 <SelectValue placeholder="권한을 선택하세요" />
               </SelectTrigger>
               <SelectContent>
-                {Object.keys(usersByPermission).map((permissionName) => (
+                {Object.keys(usersByPermission).map(permissionName => (
                   <SelectItem key={permissionName} value={permissionName}>
                     {permissionName}
                   </SelectItem>
@@ -50,7 +63,7 @@ export default function UsersByPermissionInquiryPage() {
             </TableHeader>
             <TableBody>
               {currentUsers.length > 0 ? (
-                currentUsers.map((user) => (
+                currentUsers.map(user => (
                   <TableRow key={user.id}>
                     <TableCell>{user.id}</TableCell>
                     <TableCell className="font-medium">{user.name}</TableCell>

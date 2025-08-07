@@ -5,35 +5,35 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { ChevronDown, ChevronUp } from "lucide-react" // 아이콘은 menu-data에서 가져오므로 여기서는 Chevron만 필요
 import { useSidebarExpansion } from "@/context/sidebar-context" // Import useSidebarExpansion
- 
+
 import { useMenuStore } from "@/store/menu-store"
 import type { MenuItemData } from "@/lib/menu-data"
 
 export default function Sidebar() {
   const pathname = usePathname()
-  const { isSidebarExpanded } = useSidebarExpansion() // Get sidebar expansion state 
-  const menuData = useMenuStore((state) => state.menuData)
+  const { isSidebarExpanded } = useSidebarExpansion() // Get sidebar expansion state
+  const menuData = useMenuStore(state => state.menuData)
 
   // State to manage the open/closed status of each collapsible section
   // Dynamically initialize based on menuData's sectionNames
-   const [openSections, setOpenSections] = useState<Record<string, boolean>>({}) 
+  const [openSections, setOpenSections] = useState<Record<string, boolean>>({})
 
   // Load menu data on initial mount
-  // URL 로딩되는 메뉴가 펼쳐지도록 
-  // 
+  // URL 로딩되는 메뉴가 펼쳐지도록
+  //
   useEffect(() => {
     if (menuData.length === 0) return // 메뉴가 아직 로딩되지 않은 경우 무시
 
-    setOpenSections((prev) => {
+    setOpenSections(prev => {
       const newOpenSections = { ...prev }
 
       const openRelevantSections = (items: MenuItemData[]) => {
-        items.forEach((item) => {
+        items.forEach(item => {
           if (item.children && item.sectionName) {
             const hasActiveChild = item.children.some(
-              (child) =>
+              child =>
                 child.path === pathname ||
-                (child.children && child.children.some((grand) => grand.path === pathname)),
+                (child.children && child.children.some(grand => grand.path === pathname))
             )
             if (hasActiveChild) {
               newOpenSections[item.sectionName] = true
@@ -46,11 +46,10 @@ export default function Sidebar() {
       return newOpenSections
     })
   }, [menuData, pathname]) // ✅ menuData를 의존성에 추가
- 
 
   // Function to toggle the open/closed state of a section
   const toggleSection = (sectionName: string) => {
-    setOpenSections((prev) => ({
+    setOpenSections(prev => ({
       ...prev,
       [sectionName]: !prev[sectionName],
     }))
@@ -61,7 +60,7 @@ export default function Sidebar() {
 
   // Recursive component to render menu items
   const renderMenuItems = (items: MenuItemData[], isNestedSection = false) => {
-    return items.map((item) => {
+    return items.map(item => {
       if (item.children) {
         // It's a collapsible section
         const Icon = item.icon
@@ -75,12 +74,18 @@ export default function Sidebar() {
                 ${item.isNested && isSidebarExpanded ? "pl-4" : ""}
               `}
             >
-              <div className={`flex items-center gap-2 ${!isSidebarExpanded && "justify-center w-full"}`}>
+              <div
+                className={`flex items-center gap-2 ${!isSidebarExpanded && "justify-center w-full"}`}
+              >
                 {Icon && <Icon className="h-5 w-5" />}
                 {isSidebarExpanded && <span>{item.title}</span>}
               </div>
               {isSidebarExpanded &&
-                (sectionOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />)}
+                (sectionOpen ? (
+                  <ChevronUp className="h-4 w-4" />
+                ) : (
+                  <ChevronDown className="h-4 w-4" />
+                ))}
             </div>
             {isSidebarExpanded && sectionOpen && (
               <div className={`space-y-2 ${item.isNested ? "pl-4" : "pl-4"}`}>

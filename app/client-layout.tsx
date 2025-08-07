@@ -16,13 +16,11 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
   const router = useRouter()
   const { data: session } = useSession()
 
-  const setMenuData = useMenuStore((state) => state.setMenuData)
-  const menuData = useMenuStore((state) => state.menuData)
+  const setMenuData = useMenuStore(state => state.setMenuData)
+  const menuData = useMenuStore(state => state.menuData)
   const [loading, setLoading] = useState(true)
 
-  const isPlainPage = ["/login", "/signup", "/error"].some((p) =>
-    pathname.startsWith(p)
-  )
+  const isPlainPage = ["/login", "/signup", "/error"].some(p => pathname.startsWith(p))
 
   // 🔐 JWT 유효성 검사
   useEffect(() => {
@@ -64,17 +62,12 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
   // 🚫 유효하지 않은 경로 판별
   const isValidPath = (() => {
     if (loading || isPlainPage) return true
-    const validPaths = flattenMenuItems(menuData).map((item) => item.path)
+    const validPaths = flattenMenuItems(menuData).map(item => item.path)
     return validPaths.includes(pathname)
   })()
 
-
   if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen text-gray-500">
-        로딩 중...
-      </div>
-    )
+    return <div className="flex justify-center items-center h-screen text-gray-500">로딩 중...</div>
   }
   // 🧭 페이지 조건 처리
   if (isPlainPage) {

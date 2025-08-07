@@ -26,7 +26,10 @@ export function getTitleForPath(path: string, menuItems: MenuItemData[]): string
   return breadcrumbs.length > 0 ? breadcrumbs[breadcrumbs.length - 1].title : null
 }
 
-export function getBreadcrumbs(path: string, menuItems: MenuItemData[]): { title: string; path?: string }[] {
+export function getBreadcrumbs(
+  path: string,
+  menuItems: MenuItemData[]
+): { title: string; path?: string }[] {
   const breadcrumbs: { title: string; path?: string }[] = []
 
   function findPath(items: MenuItemData[], currentPath: MenuItemData[] = []): boolean {
@@ -35,7 +38,7 @@ export function getBreadcrumbs(path: string, menuItems: MenuItemData[]): { title
 
       if (item.path === path) {
         // ✅ 경로 유무와 관계없이 모든 부모 경로를 Breadcrumb에 포함
-        updatedPath.forEach((b) => breadcrumbs.push({ title: b.title, path: b.path }))
+        updatedPath.forEach(b => breadcrumbs.push({ title: b.title, path: b.path }))
         return true
       }
 

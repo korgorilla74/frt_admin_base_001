@@ -1,6 +1,13 @@
 "use client"
 
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 import { PaginationController } from "@/components/ui/pagination-controller"
 import type { CelebItem } from "@/hooks/use-celeb-data"
 
@@ -38,7 +45,7 @@ export function CelebTable({
             </TableRow>
           </TableHeader>
           <TableBody>
-            {data.map((celeb) => (
+            {data.map(celeb => (
               <TableRow key={celeb.celebrityNo}>
                 <TableCell>{celeb.celebrityName}</TableCell>
                 <TableCell>{celeb.realName}</TableCell>

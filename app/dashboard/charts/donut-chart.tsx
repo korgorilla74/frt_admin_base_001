@@ -1,4 +1,3 @@
-
 "use client"
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -16,7 +15,7 @@ type DonutChartProps = {
 
 export function DonutChart({ title, series, labels, colors, centerLabel }: DonutChartProps) {
   const total = series.reduce((a, b) => a + b, 0)
-  const percentage = series.map((v) => ((v / total) * 100).toFixed(1))
+  const percentage = series.map(v => ((v / total) * 100).toFixed(1))
 
   return (
     <Card>
@@ -62,7 +61,10 @@ export function DonutChart({ title, series, labels, colors, centerLabel }: Donut
             {labels.map((label, i) => (
               <div key={i} className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <span className="block w-3 h-3 rounded-full" style={{ backgroundColor: colors[i] }} />
+                  <span
+                    className="block w-3 h-3 rounded-full"
+                    style={{ backgroundColor: colors[i] }}
+                  />
                   <span>{label}</span>
                 </div>
                 <div className="text-muted-foreground">

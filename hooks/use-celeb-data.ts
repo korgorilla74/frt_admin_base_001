@@ -38,19 +38,16 @@ export function useCelebData(filters: CelebFilters, page: number, perPage: numbe
           companyName: filters.companyName,
           startDate: filters.startDate,
           endDate: filters.endDate,
-          useYn:
-            filters.isActive === null
-              ? undefined
-              : filters.isActive
-              ? "Y"
-              : "N",
+          useYn: filters.isActive === null ? undefined : filters.isActive ? "Y" : "N",
         },
         { skipNull: true, skipEmptyString: true }
       )
- 
+
       console.log("🚀 ---------[useCelebData] query::", query)
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/svc/celeb/customers?${query}`)
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/svc/celeb/customers?${query}`
+        )
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`)
         }

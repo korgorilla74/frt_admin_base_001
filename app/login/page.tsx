@@ -12,7 +12,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("admin1234")
   const router = useRouter()
 
-  // ✅✅✅ NextAuth 에서 제공하는 로그인 기능 ✅✅✅ 
+  // ✅✅✅ NextAuth 에서 제공하는 로그인 기능 ✅✅✅
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     const res = await signIn("credentials", {
@@ -39,14 +39,14 @@ export default function LoginPage() {
               type="email"
               placeholder="이메일"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={e => setEmail(e.target.value)}
               required
             />
             <Input
               type="password"
               placeholder="비밀번호"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={e => setPassword(e.target.value)}
               required
             />
             <Button type="submit" className="w-full">

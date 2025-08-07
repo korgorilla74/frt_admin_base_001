@@ -40,12 +40,12 @@ export default function CelebUsersPage() {
     setFilters({ ...filters })
   }
 
-const handleFieldUpdate = (field: keyof CelebFilters, value: string) => {
-  setFilters((prev) => ({
-    ...prev,
-    [field]: value,
-  }))
-}
+  const handleFieldUpdate = (field: keyof CelebFilters, value: string) => {
+    setFilters(prev => ({
+      ...prev,
+      [field]: value,
+    }))
+  }
 
   return (
     <Card>
@@ -56,8 +56,8 @@ const handleFieldUpdate = (field: keyof CelebFilters, value: string) => {
             <Input
               id="celebName"
               defaultValue={filters.celebName}
-              onBlur={(e) => handleFieldUpdate("celebName", e.target.value)}
-              onKeyDown={(e) => {
+              onBlur={e => handleFieldUpdate("celebName", e.target.value)}
+              onKeyDown={e => {
                 if (e.key === "Enter") {
                   handleFieldUpdate("celebName", (e.target as HTMLInputElement).value)
                 }
@@ -70,8 +70,8 @@ const handleFieldUpdate = (field: keyof CelebFilters, value: string) => {
             <Input
               id="companyName"
               defaultValue={filters.companyName}
-              onBlur={(e) => handleFieldUpdate("companyName", e.target.value)}
-              onKeyDown={(e) => {
+              onBlur={e => handleFieldUpdate("companyName", e.target.value)}
+              onKeyDown={e => {
                 if (e.key === "Enter") {
                   handleFieldUpdate("companyName", (e.target as HTMLInputElement).value)
                 }
@@ -84,9 +84,7 @@ const handleFieldUpdate = (field: keyof CelebFilters, value: string) => {
               type="date"
               id="startDate"
               value={filters.startDate}
-              onChange={(e) =>
-                setFilters({ ...filters, startDate: e.target.value })
-              }
+              onChange={e => setFilters({ ...filters, startDate: e.target.value })}
             />
           </div>
           <div className="flex flex-col w-[200px]">
@@ -95,9 +93,7 @@ const handleFieldUpdate = (field: keyof CelebFilters, value: string) => {
               type="date"
               id="endDate"
               value={filters.endDate}
-              onChange={(e) =>
-                setFilters({ ...filters, endDate: e.target.value })
-              }
+              onChange={e => setFilters({ ...filters, endDate: e.target.value })}
             />
           </div>
 
@@ -109,10 +105,10 @@ const handleFieldUpdate = (field: keyof CelebFilters, value: string) => {
                 filters.isActive === true
                   ? "active"
                   : filters.isActive === false
-                  ? "inactive"
-                  : "all"
+                    ? "inactive"
+                    : "all"
               }
-              onValueChange={(value) => {
+              onValueChange={value => {
                 let isActiveFilter: boolean | null
                 if (value === "active") isActiveFilter = true
                 else if (value === "inactive") isActiveFilter = false
@@ -144,10 +140,7 @@ const handleFieldUpdate = (field: keyof CelebFilters, value: string) => {
 
           {/* ✅ 조회 버튼 복원 */}
           <div className="flex-1 flex justify-end">
-            <Button
-              onClick={handleSearch}
-              className="bg-blue-600 hover:bg-blue-700 text-white"
-            >
+            <Button onClick={handleSearch} className="bg-blue-600 hover:bg-blue-700 text-white">
               조회
             </Button>
           </div>

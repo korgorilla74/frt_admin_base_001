@@ -1,5 +1,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 
 export default function InactiveUsersPage() {
   // Dummy inactive user data
@@ -41,7 +48,7 @@ export default function InactiveUsersPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {inactiveUsers.map((user) => (
+              {inactiveUsers.map(user => (
                 <TableRow key={user.id}>
                   <TableCell>{user.id}</TableCell>
                   <TableCell className="font-medium">{user.name}</TableCell>

@@ -1,12 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import {
-  ChevronLeft,
-  ChevronRight,
-  ChevronsLeft,
-  ChevronsRight,
-} from "lucide-react"
+import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react"
 
 import { Input } from "@/components/ui/input"
 import { Select, SelectTrigger, SelectContent, SelectItem } from "@/components/ui/select"
@@ -44,14 +39,14 @@ export function PaginationController({
   const pages = Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i)
 
   return (
- <div className="w-full flex items-center justify-center gap-2 py-4 mx-auto">
+    <div className="w-full flex items-center justify-center gap-2 py-4 mx-auto">
       <span className="text-sm text-muted-foreground">Total {totalItems}</span>
 
       {/* per page selector */}
-      <Select onValueChange={(value) => onPerPageChange(Number(value))} value={String(perPage)}>
+      <Select onValueChange={value => onPerPageChange(Number(value))} value={String(perPage)}>
         <SelectTrigger className="w-[80px] text-sm">{perPage}/page</SelectTrigger>
         <SelectContent>
-          {[5, 10, 20, 50].map((count) => (
+          {[5, 10, 20, 50].map(count => (
             <SelectItem key={count} value={String(count)}>
               {count}/page
             </SelectItem>
@@ -70,7 +65,7 @@ export function PaginationController({
       </button>
 
       {/* Page numbers */}
-      {pages.map((page) => (
+      {pages.map(page => (
         <button
           key={page}
           className={`px-2 py-1 rounded text-sm ${
@@ -98,8 +93,8 @@ export function PaginationController({
         <Input
           className="w-16 h-8 text-center text-sm"
           value={goToPageInput}
-          onChange={(e) => setGoToPageInput(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && handleGoTo()}
+          onChange={e => setGoToPageInput(e.target.value)}
+          onKeyDown={e => e.key === "Enter" && handleGoTo()}
         />
       </div>
     </div>

@@ -18,12 +18,11 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { useSidebarExpansion } from "@/context/sidebar-context"
 import { cn } from "@/lib/utils"
-import { signOut } from "next-auth/react" 
+import { signOut } from "next-auth/react"
 
 import { getTitleForPath, getBreadcrumbs } from "@/lib/menu-utils"
-import { useMenuStore } from "@/store/menu-store" 
+import { useMenuStore } from "@/store/menu-store"
 import { flattenMenuItems } from "@/lib/menu-utils"
-
 
 interface RecentView {
   path: string
@@ -39,22 +38,22 @@ export default function HeaderNavigation() {
   const router = useRouter()
   const [recentViews, setRecentViews] = useState<RecentView[]>([])
   const { isSidebarExpanded, toggleSidebarExpansion } = useSidebarExpansion()
- 
-  const menuData = useMenuStore((state) => state.menuData)
+
+  const menuData = useMenuStore(state => state.menuData)
   // const breadcrumbs = getBreadcrumbs(pathname, menuData)
 
-// ✅ menuData 기준 유효 경로 검사
+  // ✅ menuData 기준 유효 경로 검사
   const isValidPath = (() => {
     if (menuData.length === 0) return true // 로딩 전이라면 검증 생략
-    const validPaths = flattenMenuItems(menuData).map((item) => item.path)
+    const validPaths = flattenMenuItems(menuData).map(item => item.path)
     return validPaths.includes(pathname)
   })()
   const breadcrumbs = isValidPath ? getBreadcrumbs(pathname, menuData) : []
   // const title = getTitleForPath(pathname, menuData)
-  
+
   // const title = isValidPath ? getTitleForPath(pathname, menuData) : "알 수 없는 경로"
-  const title = isValidPath ? getTitleForPath(pathname, menuData) ?? "알 수 없는 경로" : ""
-  
+  const title = isValidPath ? (getTitleForPath(pathname, menuData) ?? "알 수 없는 경로") : ""
+
   // Dummy user data for demonstration
   const currentUser = {
     name: "홍길동",
@@ -70,14 +69,14 @@ export default function HeaderNavigation() {
       setRecentViews(JSON.parse(storedViews))
     }
   }, [])
-    const handleRecentViewClick = useCallback(
+  const handleRecentViewClick = useCallback(
     (path: string) => {
       router.push(path)
     },
     [router]
   )
 
-    // Update recent views when pathname changes
+  // Update recent views when pathname changes
   useEffect(() => {
     if (!isValidPath) return
 
@@ -86,8 +85,8 @@ export default function HeaderNavigation() {
 
     const currentView: RecentView = { path: pathname, title: currentTitle }
 
-    setRecentViews((prevViews) => {
-      const filtered = prevViews.filter((view) => view.path !== currentView.path)
+    setRecentViews(prevViews => {
+      const filtered = prevViews.filter(view => view.path !== currentView.path)
       const newViews = [currentView, ...filtered].slice(0, MAX_RECENT_VIEWS)
 
       localStorage.setItem(RECENT_VIEWS_STORAGE_KEY, JSON.stringify(newViews))
@@ -95,11 +94,10 @@ export default function HeaderNavigation() {
     })
   }, [pathname, isValidPath, menuData])
 
-  
   const handleRemoveRecentView = useCallback((pathToRemove: string, event: React.MouseEvent) => {
     event.stopPropagation() // Prevent triggering parent onClick (navigation)
-    setRecentViews((prevViews) => {
-      const updatedViews = prevViews.filter((view) => view.path !== pathToRemove)
+    setRecentViews(prevViews => {
+      const updatedViews = prevViews.filter(view => view.path !== pathToRemove)
       localStorage.setItem(RECENT_VIEWS_STORAGE_KEY, JSON.stringify(updatedViews))
       return updatedViews
     })
@@ -111,12 +109,12 @@ export default function HeaderNavigation() {
     localStorage.removeItem(RECENT_VIEWS_STORAGE_KEY)
   }, [])
 
-  // 
+  //
   const handleLogout = useCallback(() => {
-  signOut({
-    callbackUrl: "/login", // 로그아웃 후 이동할 경로
-  })
-}, [])
+    signOut({
+      callbackUrl: "/login", // 로그아웃 후 이동할 경로
+    })
+  }, [])
 
   // const breadcrumbs = getBreadcrumbs(pathname)
 
@@ -137,7 +135,11 @@ export default function HeaderNavigation() {
           </Button>
           {breadcrumbs.map((crumb, index) => (
             <span key={`${crumb.title}-${index}`} className="flex items-center">
-              <span className={index < breadcrumbs.length - 1 ? "text-gray-600" : "font-semibold text-gray-800"}>
+              <span
+                className={
+                  index < breadcrumbs.length - 1 ? "text-gray-600" : "font-semibold text-gray-800"
+                }
+              >
                 {crumb.title}
               </span>
               {index < breadcrumbs.length - 1 && <span className="mx-1">{">"}</span>}
@@ -152,7 +154,10 @@ export default function HeaderNavigation() {
               <Avatar className="h-8 w-8">
                 {/* currentUser.avatarUrl이 있을 때만 이미지 로드, 없으면 fallback 사용 */}
                 {currentUser.avatarUrl ? (
-                  <AvatarImage src={currentUser.avatarUrl || "/placeholder.svg"} alt={currentUser.name} />
+                  <AvatarImage
+                    src={currentUser.avatarUrl || "/placeholder.svg"}
+                    alt={currentUser.name}
+                  />
                 ) : (
                   <AvatarFallback className="bg-gray-200 text-gray-500">
                     {/* 사람 얼굴 모양 아이콘으로 대체 */}
@@ -180,7 +185,9 @@ export default function HeaderNavigation() {
       {/* 2. 최근 열어본 화면 목록 */}
       <div className="flex flex-nowrap overflow-x-auto gap-0 px-4 py-2 w-full min-w-0 min-h-[60px]">
         {recentViews.length === 0 ? (
-          <p className="text-sm text-gray-500 flex items-center h-full py-1.5 px-3">최근 열어본 화면이 없습니다.</p>
+          <p className="text-sm text-gray-500 flex items-center h-full py-1.5 px-3">
+            최근 열어본 화면이 없습니다.
+          </p>
         ) : (
           <>
             {/* 전체 삭제 버튼을 가장 좌측으로 이동 */}
@@ -192,13 +199,13 @@ export default function HeaderNavigation() {
               <Trash2 className="h-3 w-3" />
               히스토리삭제
             </Button>
-            {recentViews.map((view) => (
+            {recentViews.map(view => (
               <div
                 key={view.path}
                 className={cn(
                   "flex items-center gap-1 py-1.5 px-3 text-xs rounded-none",
                   "border-r border-gray-200",
-                  "bg-white hover:bg-gray-50",
+                  "bg-white hover:bg-gray-50"
                 )}
               >
                 <Button
@@ -213,7 +220,7 @@ export default function HeaderNavigation() {
                   variant="ghost"
                   size="icon"
                   className="h-4 w-4 p-0 text-gray-500 hover:text-gray-700 hover:bg-transparent"
-                  onClick={(e) => handleRemoveRecentView(view.path, e)}
+                  onClick={e => handleRemoveRecentView(view.path, e)}
                 >
                   <X className="h-3 w-3" />
                   <span className="sr-only">닫기</span>

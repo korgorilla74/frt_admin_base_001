@@ -1,5 +1,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 
 export default function PermissionInquiryPage() {
   const permissions = [
@@ -24,7 +31,7 @@ export default function PermissionInquiryPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {permissions.map((permission) => (
+              {permissions.map(permission => (
                 <TableRow key={permission.id}>
                   <TableCell>{permission.id}</TableCell>
                   <TableCell className="font-medium">{permission.name}</TableCell>

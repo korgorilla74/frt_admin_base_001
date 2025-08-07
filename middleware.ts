@@ -2,8 +2,7 @@
 import { withAuth } from "next-auth/middleware"
 import { NextResponse } from "next/server"
 
-
-// ✅✅✅ NextAuth 제공 ✅✅✅ 
+// ✅✅✅ NextAuth 제공 ✅✅✅
 export default withAuth({
   pages: {
     signIn: "/login",
@@ -12,4 +11,4 @@ export default withAuth({
 
 export const config = {
   matcher: ["/((?!_next|static|favicon.ico|login).*)"],
-}  
+}

@@ -12,12 +12,12 @@ export const metadata: Metadata = {
   description: "Simple admin dashboard with persistent sidebar",
 }
 
-export default async function RootLayout({ children }: { children: ReactNode }) { 
+export default async function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ko">
       <body className={inter.className}>
         <SessionProviderWrapper>
-            <ClientLayout>{children}</ClientLayout>
+          <ClientLayout>{children}</ClientLayout>
         </SessionProviderWrapper>
       </body>
     </html>

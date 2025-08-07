@@ -7,7 +7,7 @@ interface MenuState {
   setMenuData: (data: MenuItemData[]) => void
 }
 
-export const useMenuStore = create<MenuState>((set) => ({
+export const useMenuStore = create<MenuState>(set => ({
   menuData: [],
-  setMenuData: (data) => set({ menuData: data }),
+  setMenuData: data => set({ menuData: data }),
 }))

@@ -5,7 +5,24 @@ import { jwtDecode } from "jwt-decode"
 interface DecodedToken {
   exp: number
   sub: string
-  [key: string]: any
+  [key: string]: unknown
+}
+
+interface CustomUser {
+  id: string
+  name: string
+  email: string
+  accessToken: string
+  refreshToken: string
+}
+
+interface CustomSession {
+  user: {
+    name?: string | null
+    email?: string | null
+  }
+  accessToken?: string
+  refreshToken?: string
 }
 
 export const authOptions: NextAuthOptions = {
@@ -20,7 +37,6 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        
         // API 호출 전에 이메일과 비밀번호가 있는지 확인
         // credentials는 사용자가 입력한 값입니다.
         if (!credentials?.email || !credentials.password) return null
@@ -29,20 +45,23 @@ export const authOptions: NextAuthOptions = {
           // API 호출 : 사용자 인증을 위한 API 엔드포인트
           // 예시: 임시 사용자 인증 API 호출
           // 실제 API 엔드포인트와 요청 형식에 맞게 수정해야 합니다.
-          const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/svc/auth/signin/temp`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              userId: credentials.email,
-              password: credentials.password,
-            }),
-          })
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/svc/auth/signin/temp`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                userId: credentials.email,
+                password: credentials.password,
+              }),
+            }
+          )
           if (!res.ok) return null
           const result = await res.json()
 
-          if (result.status !=='OK') return null
+          if (result.status !== "OK") return null
           // ✅ 여기서 result = { status: 'OK', message: 'success', data: { ... } }
 
           // 예시 응답 구조: { userName, userId, password, accessToken, refreshToken }
@@ -50,7 +69,12 @@ export const authOptions: NextAuthOptions = {
 
           // 1️⃣ 사용자 ID 일치 여부 확인
           if (credentials.email !== user.username) {
-            console.warn("❌ 사용자 ID 불일치 credentials.email:", credentials.email," user.userName:", user.username)            
+            console.warn(
+              "❌ 사용자 ID 불일치 credentials.email:",
+              credentials.email,
+              " user.userName:",
+              user.username
+            )
             return null
           }
 
@@ -75,29 +99,31 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-      async jwt({ token, user }) {
-        if (user) {
-          token.name = user.name
-          token.email = user.email
-          token.accessToken = (user as any).accessToken
-          token.refreshToken = (user as any).refreshToken
-        }
-        return token
-      },
-
-      async session({ session, token }) {
-        if (session.user) {
-          session.user.name = token.name as string
-          session.user.email = token.email as string
-          ;(session as any).accessToken = token.accessToken
-          ;(session as any).refreshToken = token.refreshToken
-        }
-        return session
-      },
+    async jwt({ token, user }) {
+      if (user) {
+        const customUser = user as CustomUser
+        token.name = customUser.name
+        token.email = customUser.email
+        token.accessToken = customUser.accessToken
+        token.refreshToken = customUser.refreshToken
+      }
+      return token
     },
 
-    pages: {  
-      signIn: "/login",  // 로그인 UI
-      signOut: "/login" // 로그아웃 UI (옵션)
+    async session({ session, token }) {
+      if (session.user) {
+        const customSession = session as CustomSession
+        customSession.user.name = token.name as string
+        customSession.user.email = token.email as string
+        customSession.accessToken = token.accessToken as string
+        customSession.refreshToken = token.refreshToken as string
+      }
+      return session
     },
+  },
+
+  pages: {
+    signIn: "/login", // 로그인 UI
+    signOut: "/login", // 로그아웃 UI (옵션)
+  },
 }

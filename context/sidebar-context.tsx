@@ -13,11 +13,13 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(true) // true = wide, false = narrow
 
   const toggleSidebarExpansion = () => {
-    setIsSidebarExpanded((prev) => !prev)
+    setIsSidebarExpanded(prev => !prev)
   }
 
   return (
-    <SidebarContext.Provider value={{ isSidebarExpanded, toggleSidebarExpansion }}>{children}</SidebarContext.Provider>
+    <SidebarContext.Provider value={{ isSidebarExpanded, toggleSidebarExpansion }}>
+      {children}
+    </SidebarContext.Provider>
   )
 }
 

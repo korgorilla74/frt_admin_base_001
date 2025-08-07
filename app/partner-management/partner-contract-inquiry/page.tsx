@@ -1,5 +1,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 
 export default function PartnerContractInquiryPage() {
   const contracts = [
@@ -48,7 +55,7 @@ export default function PartnerContractInquiryPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {contracts.map((contract) => (
+              {contracts.map(contract => (
                 <TableRow key={contract.id}>
                   <TableCell>{contract.id}</TableCell>
                   <TableCell className="font-medium">{contract.partner}</TableCell>

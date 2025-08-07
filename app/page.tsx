@@ -2,13 +2,11 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
-
 import { useSession } from "next-auth/react"
 export default function MyPage() {
   const { data: session } = useSession()
 
   return (
-
     <div className="space-y-6">
       <Card>
         <CardHeader className="flex flex-row items-center gap-4">
@@ -16,10 +14,10 @@ export default function MyPage() {
             <AvatarImage src="/placeholder.svg?height=64&width=64" alt="User Avatar" />
             <AvatarFallback>JD</AvatarFallback>
           </Avatar>
-          <div>    
+          <div>
             <div>
-            <h1>안녕하세요, {session?.user?.name || "사용자"}님</h1>
-          </div>
+              <h1>안녕하세요, {session?.user?.name || "사용자"}님</h1>
+            </div>
             <CardTitle>홍길동</CardTitle>
             <CardDescription>사용자 계정 관리</CardDescription>
           </div>

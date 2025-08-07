@@ -135,7 +135,7 @@ export default function MenuManagerPage() {
   }
 
   // 드래그 중
-  const handleDragOver = (event: DragOverEvent) => {
+  const handleDragOver = (_event: DragOverEvent) => {
     // 필요시 드래그 중 미리보기 로직 추가
   }
 
